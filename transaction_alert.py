@@ -25,10 +25,10 @@ def des_deposit(amount, balance): #This function calculates for Deposit.
     new_balance = balance + amount
     return new_balance
 
-def main(): #This is the main function, This is where all the logic is carried out.
+def main(balance): #This is the main function, This is where all the logic is carried out.
 
 #This stores the values from previous functions in variables.    
-    total_balance = user_balance()
+#Balance is now managed at loop scope instead of inside main.
     withdrawal_type = transaction_type()
     total_amount = transaction_amount()
     
@@ -36,19 +36,22 @@ def main(): #This is the main function, This is where all the logic is carried o
      
 #This is where the transaction type is processed.
     if withdrawal_type == "w":
-        new_balance = des_withdraw(total_amount, total_balance)
+        new_balance = des_withdraw(total_amount, balance)
     elif withdrawal_type == "d":
-        new_balance = des_deposit(total_amount, total_balance)
+        new_balance = des_deposit(total_amount, balance)
     else:
         print("INVALID REQUEST PLEASE TRY AGAIN")
-        return new_balance
+        return balance #This returns the unchanged balance if the user gives a wrong input.
     print("Your balance is ", new_balance)
+    return new_balance #This returns the calculated balance to where the main funcction is called.
         
 
-while True:
+balance = user_balance() #This collects the user input once before the loop starts.
+
+while True: #This is the part that makes the whole program repeatable.
     run_choice = input("Do you want to run a transaction? yes/no ").lower()
     if run_choice == "yes":
-        main()
+        balance = main(balance)
     elif run_choice == "no":
         print("Thank you for using T-Pay!! ")
         break
