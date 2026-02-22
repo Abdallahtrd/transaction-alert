@@ -1,15 +1,25 @@
-def user_balance():  #This function collects the balance input from the user.
-    balance = int(input("Input Balance Please: "))
+def user_balance():  #This function collects the balance input from the user and makes sure its the correct input.
+    while True:
+        try:
+            balance = int(input("Input Balance Please: "))
+            break
+        except:
+            print("Invalid input!! Please Input Balance.")
     return balance
 
-def transaction_amount(): #This function collects the amount input from the user.
-    amount = int(input("Please Input Transaction Amount: "))
+def transaction_amount(): #This function collects the amount input from the user and makes sure its the correct input.
+    while True:
+        try:
+            amount = int(input("Please Input Transaction Amount: "))
+            break
+        except:
+            print("Invalid input!!  Please Input a Amount.")
     return amount
 
 def transaction_type(): #This function allows for transaction type, Deposit/Withdraw.
     choice = input("Do you want to withdraw or deposit? use w/d ").lower()
     if choice == "w":
-        print("User choice withdraw.")      
+        print("User choice withdraw.")     
     elif choice == "d":
         print("User choice deposit.")
     else:
@@ -43,7 +53,7 @@ def main(balance): #This is the main function, This is where all the logic is ca
         print("INVALID REQUEST PLEASE TRY AGAIN")
         return balance #This returns the unchanged balance if the user gives a wrong input.
     print("Your balance is ", new_balance)
-    return new_balance #This returns the calculated balance to where the main funcction is called.
+    return new_balance #This returns the calculated balance to where the main function is called.
         
 
 balance = user_balance() #This collects the user input once before the loop starts.
@@ -58,8 +68,4 @@ while True: #This is the part that makes the whole program repeatable.
     else:
         print("Invalid Input!! Try again. ")
         break
-
-    
-
-
 
